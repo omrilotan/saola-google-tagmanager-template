@@ -1,0 +1,7 @@
+.*
+*.txt
+*.tpl
+*.snapshot
+*.png
+LICENSE
+/githooks

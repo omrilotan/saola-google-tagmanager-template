@@ -1,0 +1,22 @@
+{
+  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/saolaai/google-tag-manager-template.git"
+  },
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "prepare": "cp -r githooks/. .git/hooks/ && chmod +x .git/hooks/*",
+    "format": "prettier --write '**/*' --trailing-comma none",
+    "test": "NODE_NO_WARNINGS=1 node --test --experimental-test-coverage --experimental-test-snapshots --experimental-strip-types **/test.ts",
+    "build": "NODE_NO_WARNINGS=1 node --experimental-strip-types scripts/build/index.ts -- -l debug $@"
+  },
+  "devDependencies": {
+    "@types/node": "^22",
+    "prettier": "^3",
+    "prettier-plugin-organize-imports": "^4",
+    "prettier-plugin-sh": "^0.14.0",
+    "typescript": "^5"
+  }
+}

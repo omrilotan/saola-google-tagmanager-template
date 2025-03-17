@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+echo "Run pre-push hook"
+
+echo "Format code"
+if ! npm run format; then
+  echo "Code formatting failed! Push aborted."
+  exit 1
+fi
+
+echo "Run tests"
+if ! npm run test; then
+  echo "Tests failed! Push aborted."
+  exit 1
+fi
+
+echo "Build the app"
+if ! npm run build; then
+  echo "Build failed! Push aborted."
+  exit 1
+fi
+
+echo "Proceed with push."
+exit 0

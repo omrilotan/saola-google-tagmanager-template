@@ -1,0 +1,7 @@
+Implementation Notes
+
+This template adds the Saola AI tracking code to your website.
+
+- You must have a valid Saola AI account and token to use this template
+- The template loads the appropriate SDK version. No other action is required
+- Data will begin appearing in your Saola dashboard shortly after implementation
