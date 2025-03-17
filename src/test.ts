@@ -1,7 +1,7 @@
 /// <reference lib="@types/node" />
 
 import { deepEqual, equal, notDeepEqual, ok } from "node:assert/strict";
-import { access, readdir, readFile, rm } from "node:fs/promises";
+import { access, readdir, readFile } from "node:fs/promises";
 import { basename, join } from "node:path";
 import {
   afterEach,
@@ -137,19 +137,5 @@ describe(`${basename(baseDir)} template`, () => {
     test(scenario, async () => {
       await import(join(baseDir, "src/tests/scenarios", scenario));
     });
-  });
-});
-
-describe("Build", () => {
-  test("template", async () => {
-    const templatePath = join(baseDir, "template.tpl");
-    if (await exists(templatePath)) {
-      await rm(templatePath);
-    }
-    const { build } = await import(
-      join(baseDir, "scripts/build/program/index.ts")
-    );
-    await build({ root: baseDir });
-    const template = await readFile(templatePath, "utf-8");
   });
 });

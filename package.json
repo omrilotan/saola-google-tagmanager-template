@@ -4,13 +4,12 @@
     "type": "git",
     "url": "git+ssh://git@github.com/saolaai/google-tag-manager-template.git"
   },
-  "license": "MIT",
   "type": "module",
   "scripts": {
-    "prepare": "cp -r githooks/. .git/hooks/ && chmod +x .git/hooks/*",
+    "prepare": "rm -rf .git/hooks && ln -s ../githooks .git/hooks",
     "format": "prettier --write '**/*' --trailing-comma none",
     "test": "NODE_NO_WARNINGS=1 node --test --experimental-test-coverage --experimental-test-snapshots --experimental-strip-types **/test.ts",
-    "build": "NODE_NO_WARNINGS=1 node --experimental-strip-types scripts/build/index.ts -- -l debug $@"
+    "build": "./scripts/build/index.ts"
   },
   "devDependencies": {
     "@types/node": "^22",

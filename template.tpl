@@ -6,6 +6,11 @@ ___INFO___
   "version": 1,
   "securityGroups": [],
   "displayName": "Saola Recorder",
+  "categories": [
+    "ANALYTICS",
+    "EXPERIMENTATION",
+    "SESSION_RECORDING"
+  ],
   "brand": {
     "id": "SaolaAI",
     "displayName": "SaolaAI",

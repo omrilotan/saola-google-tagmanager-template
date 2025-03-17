@@ -51,7 +51,8 @@ async function buildTests(base: string, directory: string): Promise<string> {
  */
 export async function build({
   root = process.cwd(),
-  logger = console
+  logger = console,
+  verify = false
 } = {}): Promise<void> {
   logger.debug("Parse data");
   const base = join(root, "src");
@@ -88,6 +89,15 @@ export async function build({
       .map(([key, value]) => `${key}\n\n${value}`)
       .join("\n\n\n") + "\n\n";
 
+  logger.debug("Check if template has changed");
+  if (verify) {
+    const current = await readFile(`${root}/template.tpl`, "utf-8");
+    if (current !== output) {
+      throw new Error("Template has changed. Please run build again.");
+    } else {
+      return;
+    }
+  }
   logger.debug("Write to file");
   await writeFile(`${root}/template.tpl`, output);
 }
