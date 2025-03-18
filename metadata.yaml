@@ -1,5 +1,5 @@
 homepage: https://saola.ai/
 documentation: https://github.com/saolaAI/google-tag-manager-template
 versions:
-  - sha: 547c512f3687a9ab8c38b86d722d6820b4af6079
+  - sha: b478054c1f17a4209cf149278075c66110a22d79
     changeNotes: Create SaolaAI GTM template
