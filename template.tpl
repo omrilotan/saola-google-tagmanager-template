@@ -68,10 +68,9 @@ function start(data) {
     return data.gtmOnFailure();
   }
   const existingSaolaParams = copyFromWindow("SaolaParams");
-  const saolaParams =
-    typeof existingSaolaParams === "object" && existingSaolaParams !== null
-      ? existingSaolaParams
-      : {};
+  const hasExistingSaolaParams =
+    typeof existingSaolaParams === "object" && existingSaolaParams !== null;
+  const saolaParams = hasExistingSaolaParams ? existingSaolaParams : {};
   saolaParams.token = data.token;
   setInWindow("SaolaParams", saolaParams, true);
 
@@ -195,7 +194,8 @@ scenarios:
 
 - name: Inherit Existing Params
   code: |-
-    globalThis.globals.SaolaParams = { pagename: "Home" };
+    const setInWindow = require("setInWindow");
+    setInWindow("SaolaParams", { pagename: "Home" }, true);
     runCode({
       token: "b99f858f-1f67-4524-88a6-8395395b435a"
     });
@@ -230,7 +230,6 @@ scenarios:
 
 setup: |-
   mock("injectScript", (url, onSuccess, onFailure) => onSuccess());
-  globalThis.globals = {};
 
 
 

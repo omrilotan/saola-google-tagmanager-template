@@ -14,7 +14,7 @@ import {
 
 let codeContent: string = "";
 const mocks = {};
-globalThis.globals = {};
+const globals = {};
 
 // Create call tracking with a factory function
 const createCallTracker = () => ({ called: false, calls: [] });
@@ -44,11 +44,11 @@ const gtmAPIDefinitions = {
   generateRandom: (from, to) => Math.floor(Math.random() * (to - from) + from),
   makeNumber: (value) => Number(value),
   setInWindow: (key, value, overrideExisting = false) => {
-    if (overrideExisting && globalThis.globals[key]) return;
-    globalThis.globals[key] = value;
+    if (overrideExisting && globals[key]) return;
+    globals[key] = value;
   },
-  callInWindow: (key, ...args) => globalThis.globals[key]?.(...args),
-  copyFromWindow: (key) => globalThis.globals[key]
+  callInWindow: (key, ...args) => globals[key]?.(...args),
+  copyFromWindow: (key) => globals[key]
 };
 
 // Create API handlers
@@ -119,13 +119,13 @@ describe(`${basename(baseDir)} template`, () => {
   });
 
   afterEach(() => {
-    globalThis.globals = {};
+    for (const key in globals) {
+      delete globals[key];
+    }
     delete globalThis.data;
 
     Object.keys(mocks).forEach((key) => delete mocks[key]);
-    Object.keys(globalThis.globals).forEach(
-      (key) => delete globalThis.globals[key]
-    );
+    Object.keys(globals).forEach((key) => delete globals[key]);
 
     Object.values(calls).forEach((callObj) => {
       callObj.called = false;

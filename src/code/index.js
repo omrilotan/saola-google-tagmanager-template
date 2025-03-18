@@ -9,10 +9,9 @@ function start(data) {
     return data.gtmOnFailure();
   }
   const existingSaolaParams = copyFromWindow("SaolaParams");
-  const saolaParams =
-    typeof existingSaolaParams === "object" && existingSaolaParams !== null
-      ? existingSaolaParams
-      : {};
+  const hasExistingSaolaParams =
+    typeof existingSaolaParams === "object" && existingSaolaParams !== null;
+  const saolaParams = hasExistingSaolaParams ? existingSaolaParams : {};
   saolaParams.token = data.token;
   setInWindow("SaolaParams", saolaParams, true);
 
