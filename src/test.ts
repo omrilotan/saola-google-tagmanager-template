@@ -1,7 +1,7 @@
 /// <reference lib="@types/node" />
 
 import { deepEqual, equal, notDeepEqual, ok } from "node:assert/strict";
-import { access, readdir, readFile } from "node:fs/promises";
+import { readdir } from "node:fs/promises";
 import { basename, join } from "node:path";
 import {
   afterEach,
@@ -94,15 +94,6 @@ Object.assign(globalThis, {
     eval(codeContent);
   }
 });
-
-async function exists(file) {
-  try {
-    await access(file);
-    return true;
-  } catch {
-    return false;
-  }
-}
 
 const baseDir = process.cwd();
 const scenarios = (await readdir(join(baseDir, "src/tests/scenarios"))).filter(
