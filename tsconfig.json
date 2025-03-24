@@ -4,11 +4,10 @@
     "module": "esnext",
     "target": "esnext",
     "lib": ["dom", "esnext"],
-    "types": ["@types/node"],
+    "types": [],
     "moduleResolution": "node",
     "allowImportingTsExtensions": true,
-    "esModuleInterop": true,
-    "resolveJsonModule": true
+    "esModuleInterop": true
   },
   "include": ["**/*"],
   "exclude": ["node_modules", "dist"]

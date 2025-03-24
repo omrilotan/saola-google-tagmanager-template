@@ -1,4 +1,5 @@
 #!/usr/bin/env NODE_NO_WARNINGS=1 node --experimental-strip-types
+/// <reference types="node" />
 
 import { parseArgs } from "node:util";
 import { build } from "./program/index.ts";

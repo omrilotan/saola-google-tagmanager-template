@@ -11,6 +11,7 @@ import {
   snapshot,
   test
 } from "node:test";
+import { importTypescriptAsJavascriptString } from "../lib/index.ts";
 
 let codeContent: string = "";
 const mocks = {};
@@ -110,7 +111,10 @@ const scenarios = (await readdir(join(baseDir, "src/tests/scenarios"))).filter(
 
 describe(`${basename(baseDir)} template`, () => {
   before(async () => {
-    codeContent = await readFile(join(baseDir, "src/code/index.js"), "utf-8");
+    codeContent = await importTypescriptAsJavascriptString(
+      baseDir,
+      "src/code/index.ts"
+    );
     snapshot.setResolveSnapshotPath(() => join(baseDir, "test.ts.snapshot"));
   });
 

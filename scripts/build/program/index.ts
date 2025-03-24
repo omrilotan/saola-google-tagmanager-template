@@ -1,19 +1,14 @@
-/// <reference lib="@types/node" />
+/// <reference types="node" />
 
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-
-const indent = (string: string, indentation = "\t"): string =>
-  string
-    .split("\n")
-    .map((line) => (line === "" ? line : `${indentation}${line}`))
-    .join("\n");
-const capitalize = (string: string): string =>
-  string[0].toUpperCase() + string.slice(1);
-const readFileContent = async (base: string, path: string): Promise<string> =>
-  (await readFile(join(base, path), "utf-8")).trim();
-const importIndexAsJSON = async (base: string, name: string): Promise<string> =>
-  JSON.stringify((await import(join(base, name, "index.ts")))[name], null, 2);
+import {
+  capitalize,
+  indent,
+  importIndexAsJSON,
+  importTypescriptAsJavascriptString,
+  readFileContent
+} from "../../../lib/index.ts";
 
 /**
  * Build the tests section of the template.
@@ -65,7 +60,10 @@ export async function build({
     ___TERMS_OF_SERVICE___: ["tos/tos.txt", readFileContent],
     ___INFO___: ["info", importIndexAsJSON],
     ___TEMPLATE_PARAMETERS___: ["variables", importIndexAsJSON],
-    ___SANDBOXED_JS_FOR_WEB_TEMPLATE___: ["code/index.js", readFileContent],
+    ___SANDBOXED_JS_FOR_WEB_TEMPLATE___: [
+      "code/index.ts",
+      importTypescriptAsJavascriptString
+    ],
     ___WEB_PERMISSIONS___: ["permissions", importIndexAsJSON],
     ___TESTS___: ["tests", buildTests],
     ___NOTES___: ["notes/notes.txt", readFileContent]
