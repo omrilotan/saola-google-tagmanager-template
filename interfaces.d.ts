@@ -1,9 +1,15 @@
+/**
+ * The tag runs with this data on the global scope
+ */
 declare interface Global {
   data: {
     gtmOnSuccess: () => void;
     gtmOnFailure: () => void;
+    token: string;
+    version?: string;
     [propertyName: string]: any;
   };
+  SaolaParams?: Record<string, any>;
 }
 
 /**
@@ -59,3 +65,16 @@ declare type Template = {
     version: string; // The version of the community gallery template.
   };
 };
+
+declare function require(name: "copyFromWindow"): (key: string) => unknown;
+declare function require(
+  name: "injectScript"
+): (
+  url: string,
+  successCallback: () => void,
+  failureCallback: () => void,
+  cacheKey?: string
+) => void;
+declare function require(
+  name: "setInWindow"
+): (key: string, value: unknown, overrideExisting?: boolean) => void;
