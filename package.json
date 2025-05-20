@@ -2,7 +2,7 @@
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/saolaai/google-tag-manager-template.git"
+    "url": "git+ssh://git@github.com/omrilotan/saola-google-tagmanager-template.git"
   },
   "type": "module",
   "scripts": {
