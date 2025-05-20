@@ -83,7 +83,6 @@ export async function build({
   // Filter out TOS (only for public templates) and format the output
   const output =
     Object.entries(data)
-      .filter(([key]) => key !== "___TERMS_OF_SERVICE___")
       .map(([key, value]) => `${key}\n\n${value}`)
       .join("\n\n\n") + "\n\n";
 
