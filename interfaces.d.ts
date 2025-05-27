@@ -78,3 +78,4 @@ declare function require(
 declare function require(
   name: "setInWindow"
 ): (key: string, value: unknown, overrideExisting?: boolean) => void;
+declare function require(name: "encodeUriComponent"): (value: string) => string;

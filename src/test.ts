@@ -49,7 +49,8 @@ const gtmAPIDefinitions = {
     globals[key] = value;
   },
   callInWindow: (key, ...args) => globals[key]?.(...args),
-  copyFromWindow: (key) => globals[key]
+  copyFromWindow: (key) => globals[key],
+  encodeUriComponent: (value) => encodeURIComponent(value)
 };
 
 // Create API handlers

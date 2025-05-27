@@ -68,6 +68,7 @@ ___SANDBOXED_JS_FOR_WEB_TEMPLATE___
 const copyFromWindow = require("copyFromWindow");
 const injectScript = require("injectScript");
 const setInWindow = require("setInWindow");
+const encodeUriComponent = require("encodeUriComponent");
 start(data);
 function start(data) {
   if (!data.token) {
@@ -79,7 +80,11 @@ function start(data) {
   saolaParams.token = data.token;
   setInWindow("SaolaParams", saolaParams, true);
   const version = data.version || "latest";
-  const url = ["https://www.saola.ai/sdk/saola", version, "js"].join(".");
+  const url = [
+    "https://www.saola.ai/sdk/saola",
+    encodeUriComponent(version),
+    "js"
+  ].join(".");
   injectScript(url, data.gtmOnSuccess, data.gtmOnFailure, url);
 }
 
@@ -221,6 +226,20 @@ scenarios:
     runCode({
       token: "b99f858f-1f67-4524-88a6-8395395b435a",
       version: "1.2.3"
+    });
+    assertApi("gtmOnSuccess").wasCalled();
+
+- name: Malicious user input
+  code: |-
+    mock("injectScript", function (url, onSuccess, onFailure) {
+      assertThat(url).isEqualTo(
+        "https://www.saola.ai/sdk/saola.%3Fsome-query%3Dvalue%23.js"
+      );
+      onSuccess();
+    });
+    runCode({
+      token: "b99f858f-1f67-4524-88a6-8395395b435a",
+      version: "?some-query=value#"
     });
     assertApi("gtmOnSuccess").wasCalled();
 

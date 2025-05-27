@@ -1,6 +1,7 @@
 const copyFromWindow = require("copyFromWindow");
 const injectScript = require("injectScript");
 const setInWindow = require("setInWindow");
+const encodeUriComponent = require("encodeUriComponent");
 
 declare const data: Global["data"];
 
@@ -19,6 +20,10 @@ function start(data: Global["data"]): void {
   saolaParams.token = data.token;
   setInWindow("SaolaParams", saolaParams, true);
   const version = data.version || "latest";
-  const url = ["https://www.saola.ai/sdk/saola", version, "js"].join(".");
+  const url = [
+    "https://www.saola.ai/sdk/saola",
+    encodeUriComponent(version),
+    "js"
+  ].join(".");
   injectScript(url, data.gtmOnSuccess, data.gtmOnFailure, url);
 }
